@@ -1,0 +1,45 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Fyyur | Venues{% endblock %}
+{% block content %}
+<div style="display: block; padding: 30px;">
+	<div class="col-md-5">
+		{% for area in areas %}
+			<h3>{{ area.city }}, {{ area.state }}</h3>
+			{% if area.venues %}	
+				<table class="table table-primary">
+					<thead>
+						<tr>
+							<th>Venues</th>
+							<th>No of Upcoming Shows</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody class="table table-light border-0">
+						{% for venue in area.venues %}
+						<tr>
+							<td>
+								<a href="/venues/{{ venue.id }}" style="display: flex;">
+									<i class="fas fa-music"></i>
+									<div class="item">
+										<h5>{{ venue.name }}</h5>
+									</div>
+								</a>
+							</td>
+							<td>
+								<h5>{{venue.shows|count}}</h5>
+							</td>
+							<td>
+								<a href="/venues/{{ venue.id }}/delete" class="btn btn-danger">&cross;</a>
+								<a href="/venues/{{ venue.id }}/edit" class="btn btn-primary">Edit</a>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			{% else %}
+				<h6>No Venue Posted yet, to post some visit <a href="/venues/create">post a venue</a></h6>
+			{% endif %}
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}
